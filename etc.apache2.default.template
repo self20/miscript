@@ -1,0 +1,142 @@
+#
+#
+# The Seedbox From Scratch Script
+#   By Notos ---> https://github.com/Notos/
+#
+#
+######################################################################
+#
+#  Copyright (c) 2013 Notos (https://github.com/Notos/)
+#
+#  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+#
+#  The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+#
+#  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+#
+#  --> Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
+#
+######################################################################
+#
+
+<VirtualHost *:80>
+  ServerAdmin webmaster@localhost
+  ServerName <servername>
+  DocumentRoot /var/www/
+
+  <Directory />
+    Options FollowSymLinks
+    AllowOverride All
+    AuthType Digest
+    AuthName "documentroot"
+    AuthDigestProvider file
+    AuthUserFile /etc/apache2/htpasswd
+    Require user <username>
+  </Directory>
+
+  <Directory /var/www/>
+    Options -Indexes FollowSymLinks MultiViews
+    AllowOverride None
+    Order allow,deny
+    allow from all
+  </Directory>
+
+  <Directory /var/www/share/>
+    Order Deny,Allow
+    Allow from all
+    Satisfy any
+  </Directory>
+
+  <Directory /var/www/rapidleech/>
+    Order Deny,Allow
+    Allow from all
+    Satisfy any
+  </Directory>
+
+  <Directory /var/www/stream/>
+    Order Deny,Allow
+    Allow from all
+    Satisfy any
+  </Directory>
+
+  ErrorLog /var/log/apache2/error.log
+
+  # Possible values include: debug, info, notice, warn, error, crit,
+  # alert, emerg.
+
+  LogLevel warn
+
+  CustomLog /var/log/apache2/access.log combined
+
+  <Directory /var/www/rutorrent>
+    AuthType Digest
+    AuthName "rutorrent"
+    AuthDigestDomain /var/www/rutorrent/ http://<servername>/rutorrent
+    AuthDigestProvider file
+    AuthUserFile /etc/apache2/htpasswd
+    Require valid-user
+    SetEnv R_ENV "/var/www/rutorrent"
+  </Directory>
+</VirtualHost>
+
+<VirtualHost *:443>
+  ServerAdmin webmaster@localhost
+  ServerName <servername>
+  NameVirtualHost *:443
+  SSLEngine on
+  SSLCertificateFile /etc/seedbox/ssl/cert.pem
+  SSLCertificateKeyFile /etc/seedbox/ssl/key.pem
+
+  DocumentRoot /var/www/
+
+  <Directory />
+    Options FollowSymLinks
+    AllowOverride All
+    AuthType Digest
+    AuthName "documentroot"
+    AuthDigestProvider file
+    AuthUserFile /etc/apache2/htpasswd
+    Require user <username>
+  </Directory>
+
+  <Directory /var/www/>
+    Options -Indexes FollowSymLinks MultiViews
+    AllowOverride None
+    Order allow,deny
+    allow from all
+  </Directory>
+
+  <Directory /var/www/share/>
+    Order Deny,Allow
+    Allow from all
+    Satisfy any
+  </Directory>
+
+  <Directory /var/www/rapidleech/>
+    Order Deny,Allow
+    Allow from all
+    Satisfy any
+  </Directory>
+
+  <Directory /var/www/stream/>
+    Order Deny,Allow
+    Allow from all
+    Satisfy any
+  </Directory>
+
+  ErrorLog /var/log/apache2/error.log
+  # Possible values include: debug, info, notice, warn, error, crit,
+  # alert, emerg.
+  LogLevel warn
+
+  CustomLog /var/log/apache2/access.log combined
+  <Directory /var/www/rutorrent>
+    AuthType Digest
+    AuthName "rutorrent"
+    AuthDigestDomain /var/www/rutorrent/ https://<servername>/rutorrent
+    AuthDigestProvider file
+    AuthUserFile /etc/apache2/htpasswd
+    Require valid-user
+    SetEnv R_ENV "/var/www/rutorrent"
+  </Directory>
+</VirtualHost>

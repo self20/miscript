@@ -1,0 +1,70 @@
+##################### FIRST LINE
+# ---------------------------
+#!/bin/bash
+# ---------------------------
+#
+#
+#
+# The Seedbox From Scratch Script
+#   By Notos ---> https://github.com/Notos/
+#
+#
+######################################################################
+#
+#  Copyright (c) 2013 Notos (https://github.com/Notos/)
+#
+#  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+#
+#  The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+#
+#  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+#
+#  --> Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
+#
+######################################################################
+#
+#
+
+# 3.1
+
+NEWUSER1=a
+NEWUSER2=b
+
+while [ ! $NEWUSER1 = $NEWUSER2 ];
+do
+  clear
+   echo -n "Type username to be DELETED: "
+   read NEWUSER1
+   echo -n "Retype username: "
+   read NEWUSER2
+   echo ""
+done
+
+# 3.1.1
+
+#kill all processes related to that user
+sudo kill -9 $( ps -ef | grep $NEWUSER1 | awk '{ print $2 }' )
+
+# 3.2
+
+sudo userdel --remove --force $NEWUSER1 
+
+# 12.
+
+#remove current password from htpassword
+sudo perl -pi -e "s/^$NEWUSER1\:.*\n$//g" /etc/apache2/htpasswd
+
+# 20.
+############## sudo rm -r /home/downloads/$NEWUSER1
+
+# 21.
+sudo rm /etc/init/rtorrent.$NEWUSER1.conf
+
+# 29.
+sudo rm -r /var/www/rutorrent/conf/users/$NEWUSER1
+
+sudo rm /etc/seedbox/users/$NEWUSER1.info
+
+##################### LAST LINE ###########
+
+# scripts are now in git form :)

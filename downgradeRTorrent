@@ -1,0 +1,52 @@
+##################### FIRST LINE
+# ---------------------------
+#!/bin/bash
+# ---------------------------
+#
+#
+#
+# The Seedbox From Scratch Script
+#   By Notos ---> https://github.com/Notos/
+#
+#
+######################################################################
+#
+#  Copyright (c) 2013 Notos (https://github.com/Notos/)
+#
+#  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+#
+#  The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+#
+#  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+#
+#  --> Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
+#
+######################################################################
+#
+#
+# Downgrade rTorrent
+#
+#
+
+echo "This is broken, sorry. :("
+exit 0
+
+sudo killall rtorrent
+svn co https://xmlrpc-c.svn.sourceforge.net/svnroot/xmlrpc-c/stable xmlrpc
+curl http://libtorrent.rakshasa.no/downloads/libtorrent-0.12.9.tar.gz | tar xz
+curl http://libtorrent.rakshasa.no/downloads/rtorrent-0.8.9.tar.gz | tar xz
+cd /etc/seedbox/source/xmlrpc-c-1.16.42/
+./configure --prefix=/usr --enable-libxml2-backend --disable-libwww-client --disable-wininet-client --disable-abyss-server --disable-cgi-server
+make
+sudo make install
+cd ../libtorrent-0.12.9
+./autogen.sh
+./configure --prefix=/usr
+make -j2
+sudo make install
+cd ../rtorrent-0.8.9
+./autogen.sh
+./configure --prefix=/usr --with-xmlrpc-c
+make -j2
+sudo make install
+screen -S rtorrent rtorrent

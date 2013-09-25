@@ -1,0 +1,8 @@
+plugin.description: The plug-in is intended for restrict upload on public trackers.
+plugin.author: Novik
+plugin.version: 3.5
+plugin.runlevel: 12
+rtorrent.php.error: update.php,conf.php
+rtorrent.remote: error
+rtorrent.external.error: php
+rtorrent.version: 0.8.6
