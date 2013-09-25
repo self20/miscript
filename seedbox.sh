@@ -26,7 +26,7 @@
 #  sudo git stash; sudo git pull
 #
 #
-  SBFSCURRENTVERSION1=2.1.9
+  SBFSCURRENTVERSION1=master
   OS1=$(lsb_release -si)
 #
 # Changelog
@@ -270,7 +270,7 @@ apt-get --yes update
 apt-get --yes install whois sudo makepasswd git
 
 rm -f -r /etc/seedbox
-git clone https://github.com/self20/miscript.git /etc/seedbox
+git clone -b $SBFSCURRENTVERSION1 https://github.com/self20/miscript.git /etc/seedbox
 mkdir -p cd /etc/seedbox/source
 mkdir -p cd /etc/seedbox/users
 
