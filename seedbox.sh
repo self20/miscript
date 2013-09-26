@@ -530,6 +530,8 @@ rm -r -f /var/www/rutorrent/js/webui.js
 cp /etc/miscript/rutorrent/js/webui.js /var/www/rutorrent/js/webui.js
 mv /etc/miscript/rutorrent/plugins/* /var/www/rutorrent/plugins
 mv /etc/miscript/rutorrent/themes/* /var/www/rutorrent/plugins/theme/themes
+rm -r -f /var/www/rutorrent/plugins/create/conf.php
+cp /etc/miscript/rutorrent/plugins/create/conf.php /var/www/rutorrent/plugins/create/
 
 cp /etc/miscript/action.php.template /var/www/rutorrent/plugins/diskspace/action.php
 
