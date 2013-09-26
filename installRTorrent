@@ -42,21 +42,21 @@ if [ "$RTORRENT1" = "0.9.3" ]; then
   LIBTORRENT1=0.13.3
 fi
 
-if [ ! -d /etc/seedbox/source/rtorrent-$RTORRENT1/ ]; then
-  sudo tar xvfz /etc/seedbox/rtorrent-$RTORRENT1.tar.gz -C /etc/seedbox/source/
-  sudo tar xvfz /etc/seedbox/libtorrent-$LIBTORRENT1.tar.gz -C /etc/seedbox/source/
+if [ ! -d /etc/miscript/source/rtorrent-$RTORRENT1/ ]; then
+  sudo tar xvfz /etc/miscript/rtorrent-$RTORRENT1.tar.gz -C /etc/miscript/source/
+  sudo tar xvfz /etc/miscript/libtorrent-$LIBTORRENT1.tar.gz -C /etc/miscript/source/
 fi
 
 sudo killall rtorrent
 sudo kill -9 `sudo ps aux | grep rtorrent | grep -v grep | awk '{print $2}' | cut -d. -f 1` &> /dev/null
 
-cd /etc/seedbox/source/libtorrent-$LIBTORRENT1
+cd /etc/miscript/source/libtorrent-$LIBTORRENT1
 sudo ./autogen.sh
 sudo ./configure --prefix=/usr
 sudo make -j2
 sudo make install
 
-cd /etc/seedbox/source/rtorrent-$RTORRENT1
+cd /etc/miscript/source/rtorrent-$RTORRENT1
 sudo ./autogen.sh
 sudo ./configure --prefix=/usr --with-xmlrpc-c
 sudo make -j2

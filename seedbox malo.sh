@@ -22,7 +22,7 @@
 #
 ######################################################################
 #
-#  git clone -b master https://github.com/Notos/miscript.git /etc/miscript
+#  git clone -b master https://github.com/Notos/seedbox.git /etc/seedbox
 #  sudo git stash; sudo git pull
 #
 #
@@ -36,7 +36,7 @@
 #     - RTorrent 0.9.3 support (optionally installed)
 #     - New installRTorrent script: move to RTorrent 0.9.3 or back to 0.9.2 at any time
 #     - Deluge v1.3.5 multi-user installation script (it will install the last stable version): installDeluge
-#     - Optionally install Deluge when you first install your miscript box
+#     - Optionally install Deluge when you first install your seedbox box
 #
 #  Version 2.1.8 (stable)
 #     - Bug fix release
@@ -62,13 +62,13 @@
 #  Version 2.1.1 (stable)
 #   Nov 12 2012 20:15
 #     - OpenVPN was not working as expected (fixed)
-#     - OpenVPN port now is configurable (at main install) and you can change it anytime before reinstalling: /etc/miscript/openvpn.info
+#     - OpenVPN port now is configurable (at main install) and you can change it anytime before reinstalling: /etc/seedbox/openvpn.info
 #
 #  Version 2.1.0 (not stable yet)
 #   Nov 11 2012 20:15
 #     - sabnzbd: http://wiki.sabnzbd.org/install-ubuntu-repo
 #     - restartSeedbox script for each user
-#     - User info files in /etc/miscript/users
+#     - User info files in /etc/seedbox/users
 #     - Info about all users in https://hostname.tld/seedboxInfo.php
 #     - Password protected webserver Document Root (/var/www/)
 #
@@ -82,8 +82,8 @@
 #     - Choose between RTorrent 0.8.9 and 0.9.2 (and their respective libtorrent libraries)
 #     - Upgrade and downgrade RTorrent at any time
 #     - Full automated install, now you just have to download script and run it in your box:
-#        > wget -N https://raw.github.com/Notos/miscript/v2.x.x/miscript.sh
-#        > time bash ~/miscript.sh
+#        > wget -N https://raw.github.com/Notos/seedbox/v2.x.x/seedbox.sh
+#        > time bash ~/seedbox.sh
 #     - Due to a recent outage of Webmin site and SourceForge's svn repositories, some packages are now in git and will not be downloaded from those sites
 #     - Updated list of trackers in Autodl-irssi
 #     - vsftpd FTP Server (working in chroot jail)
@@ -251,9 +251,14 @@ getString YES "Password for user $NEWUSER1: " PASSWORD1
 getString NO  "IP address or hostname of your box: " IPADDRESS1 $IPADDRESS1
 getString NO  "SSH port: " NEWSSHPORT1 21976
 getString NO  "vsftp port (usually 21): " NEWFTPPORT1 21201
+#getString NO  "OpenVPN port: " OPENVPNPORT1 31195
 #getString NO  "Do you want to have some of your users in a chroot jail? " CHROOTJAIL1 YES
 getString NO  "Install Webmin? " INSTALLWEBMIN1 YES
 getString NO  "Install Fail2ban? " INSTALLFAIL2BAN1 YES
+#getString NO  "Install OpenVPN? " INSTALLOPENVPN1 YES
+#getString NO  "Install SABnzbd? " INSTALLSABNZBD1 YES
+#getString NO  "Install Rapidleech? " INSTALLRAPIDLEECH1 YES
+#getString NO  "Install Deluge? " INSTALLDELUGE1 YES
 getString NO  "Wich RTorrent version would you like to install, '0.9.2' or '0.9.3'? " RTORRENT1 0.9.2
 
 if [ "$RTORRENT1" != "0.9.3" ] && [ "$RTORRENT1" != "0.9.2" ]; then
@@ -264,12 +269,12 @@ fi
 apt-get --yes update
 apt-get --yes install whois sudo makepasswd git
 
-rm -f -r /etc/miscript
-git clone -b $SBFSCURRENTVERSION1 https://github.com/self20/miscript.git /etc/miscript
-mkdir -p cd /etc/miscript/source
-mkdir -p cd /etc/miscript/users
+rm -f -r /etc/seedbox
+git clone -b $SBFSCURRENTVERSION1 https://github.com/self20/miscript.git /etc/seedbox
+mkdir -p cd /etc/seedbox/source
+mkdir -p cd /etc/seedbox/users
 
-if [ ! -f /etc/miscript/miscript.sh ]; then
+if [ ! -f /etc/seedbox/seedbox.sh ]; then
   clear
   echo Looks like somethig is wrong, this script was not able to download its whole git repository.
   set -e
@@ -344,8 +349,8 @@ fi
 apt-get --yes install dnsutils
 
 if [ "$CHROOTJAIL1" = "YES" ]; then
-  cd /etc/miscript
-  tar xvfz jailkit-2.15.tar.gz -C /etc/miscript/source/
+  cd /etc/seedbox
+  tar xvfz jailkit-2.15.tar.gz -C /etc/seedbox/source/
   cd source/jailkit-2.15
   ./debian/rules binary
   cd ..
@@ -366,21 +371,21 @@ fi
 # 8.3 Generate our lists of ports and RPC and create variables
 
 #permanently adding scripts to PATH to all users and root
-#echo "PATH=$PATH:/etc/miscript:/sbin" | tee -a /etc/profile > /dev/null
-#echo "export PATH" | tee -a /etc/profile > /dev/null
-#echo "PATH=$PATH:/etc/miscript:/sbin" | tee -a /root/.bashrc > /dev/null
-#echo "export PATH" | tee -a /root/.bashrc > /dev/null
+echo "PATH=$PATH:/etc/seedbox:/sbin" | tee -a /etc/profile > /dev/null
+echo "export PATH" | tee -a /etc/profile > /dev/null
+echo "PATH=$PATH:/etc/seedbox:/sbin" | tee -a /root/.bashrc > /dev/null
+echo "export PATH" | tee -a /root/.bashrc > /dev/null
 
-rm -f /etc/miscript/ports.txt
+rm -f /etc/seedbox/ports.txt
 for i in $(seq 51101 51999)
 do
-  echo "$i" | tee -a /etc/miscript/ports.txt > /dev/null
+  echo "$i" | tee -a /etc/seedbox/ports.txt > /dev/null
 done
 
-rm -f /etc/miscript/rpc.txt
+rm -f /etc/seedbox/rpc.txt
 for i in $(seq 2 1000)
 do
-  echo "RPC$i"  | tee -a /etc/miscript/rpc.txt > /dev/null
+  echo "RPC$i"  | tee -a /etc/seedbox/rpc.txt > /dev/null
 done
 
 # 8.4
@@ -413,7 +418,7 @@ fi
 if [ "$INSTALLFAIL2BAN1" = "YES" ]; then
   apt-get --yes install fail2ban
   cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.conf.original
-  cp /etc/miscript/etc.fail2ban.jail.conf.template /etc/fail2ban/jail.conf
+  cp /etc/seedbox/etc.fail2ban.jail.conf.template /etc/fail2ban/jail.conf
   fail2ban-client reload
 fi
 
@@ -438,7 +443,7 @@ echo "Timeout 30" | tee -a /etc/apache2/apache2.conf > /dev/null
 
 service apache2 restart
 
-echo "$IPADDRESS1" > /etc/miscript/hostname.info
+echo "$IPADDRESS1" > /etc/seedbox/hostname.info
 
 # 11.
 
@@ -447,19 +452,19 @@ export CERTPASS1=@@$TEMPHOSTNAME1.$NEWUSER1.ServerP7s$
 export NEWUSER1
 export IPADDRESS1
 
-echo "$NEWUSER1" > /etc/miscript/mainuser.info
-echo "$CERTPASS1" > /etc/miscript/certpass.info
+echo "$NEWUSER1" > /etc/seedbox/mainuser.info
+echo "$CERTPASS1" > /etc/seedbox/certpass.info
 
-bash /etc/miscript/createOpenSSLCACertificate
+bash /etc/seedbox/createOpenSSLCACertificate
 
 mkdir -p /etc/ssl/private/
-openssl req -x509 -nodes -days 365 -newkey rsa:1024 -keyout /etc/ssl/private/vsftpd.pem -out /etc/ssl/private/vsftpd.pem -config /etc/miscript/ssl/CA/caconfig.cnf
+openssl req -x509 -nodes -days 365 -newkey rsa:1024 -keyout /etc/ssl/private/vsftpd.pem -out /etc/ssl/private/vsftpd.pem -config /etc/seedbox/ssl/CA/caconfig.cnf
 
 if [ "$OS1" = "Debian" ]; then
   apt-get --yes install vsftpd
 else
   apt-get --yes install libcap-dev libpam0g-dev libwrap0-dev
-  dpkg -i /etc/miscript/vsftpd_2.3.2-3ubuntu5.1_`uname -m`.deb
+  dpkg -i /etc/seedbox/vsftpd_2.3.2-3ubuntu5.1_`uname -m`.deb
 fi
 
 perl -pi -e "s/anonymous_enable\=YES/\#anonymous_enable\=YES/g" /etc/vsftpd.conf
@@ -487,7 +492,7 @@ echo "port_promiscuous=YES" | tee -a /etc/vsftpd.conf >> /dev/null
 mv /etc/apache2/sites-available/default /etc/apache2/sites-available/default.ORI
 rm -f /etc/apache2/sites-available/default
 
-cp /etc/miscript/etc.apache2.default.template /etc/apache2/sites-available/default
+cp /etc/seedbox/etc.apache2.default.template /etc/apache2/sites-available/default
 perl -pi -e "s/http\:\/\/.*\/rutorrent/http\:\/\/$IPADDRESS1\/rutorrent/g" /etc/apache2/sites-available/default
 perl -pi -e "s/<servername>/$IPADDRESS1/g" /etc/apache2/sites-available/default
 perl -pi -e "s/<username>/$NEWUSER1/g" /etc/apache2/sites-available/default
@@ -503,8 +508,8 @@ a2ensite default-ssl
 #apt-get --yes install libxmlrpc-core-c3-dev
 
 # 15.
-tar xvfz /etc/miscript/xmlrpc-c-1.16.42.tgz -C /etc/miscript/source/
-cd /etc/miscript/source/
+tar xvfz /etc/seedbox/xmlrpc-c-1.16.42.tgz -C /etc/seedbox/source/
+cd /etc/seedbox/source/
 unzip ../xmlrpc-c-1.31.06.zip
 
 # 16.
@@ -517,27 +522,21 @@ make install
 
 # 21.
 
-bash /etc/miscript/installRTorrent $RTORRENT1
+bash /etc/seedbox/installRTorrent $RTORRENT1
 
 # 22.
 cd /var/www
 rm -f -r rutorrent
-svn checkout http://rutorrent.googlecode.com/svn/trunk/rutorrent
-svn checkout http://rutorrent.googlecode.com/svn/trunk/plugins
-rm -r -f rutorrent/plugins
-mv plugins rutorrent/
-rm -r -f /var/www/rutorrent/js/webui.js
-cp /etc/miscript/rutorrent/js/webui.js /var/www/rutorrent/js/webui.js
-mv /etc/miscript/rutorrent/plugins/* /var/www/rutorrent/plugins
-mv /etc/miscript/rutorrent/themes/* /var/www/rutorrent/plugins/theme/themes
+mkdir -p rutorrent
+mv /etc/seedbox/rutorrent/* /var/www/rutorrent
 
-cp /etc/miscript/action.php.template /var/www/rutorrent/plugins/diskspace/action.php
+cp /etc/seedbox/action.php.template /var/www/rutorrent/plugins/diskspace/action.php
 
 groupadd admin
 
 echo "www-data ALL=(root) NOPASSWD: /usr/sbin/repquota" | tee -a /etc/sudoers > /dev/null
 
-cp /etc/miscript/favicon.ico /var/www/
+cp /etc/seedbox/favicon.ico /var/www/
 
 # 26.
 cd /tmp
@@ -556,7 +555,7 @@ cd autodl-irssi
 
 cp /etc/jailkit/jk_init.ini /etc/jailkit/jk_init.ini.original
 echo "" | tee -a /etc/jailkit/jk_init.ini >> /dev/null
-bash /etc/miscript/updatejkinit
+bash /etc/seedbox/updatejkinit
 
 # 31.
 
@@ -570,25 +569,25 @@ bash /etc/miscript/updatejkinit
 
 # Installing poweroff button on ruTorrent
 
-cd /var/www/rutorrent/plugins/
-wget http://rutorrent-logoff.googlecode.com/files/logoff-1.0.tar.gz
-tar -zxf logoff-1.0.tar.gz
-rm -f logoff-1.0.tar.gz
+#cd /var/www/rutorrent/plugins/
+#wget http://rutorrent-logoff.googlecode.com/files/logoff-1.0.tar.gz
+#tar -zxf logoff-1.0.tar.gz
+#rm -f logoff-1.0.tar.gz
 
 # Installing Filemanager and MediaStream
 
-rm -f -R /var/www/rutorrent/plugins/filemanager
-rm -f -R /var/www/rutorrent/plugins/fileupload
-rm -f -R /var/www/rutorrent/plugins/mediastream
+#rm -f -R /var/www/rutorrent/plugins/filemanager
+#rm -f -R /var/www/rutorrent/plugins/fileupload
+#rm -f -R /var/www/rutorrent/plugins/mediastream
 rm -f -R /var/www/stream
 
-cd /var/www/rutorrent/plugins/
-svn co http://svn.rutorrent.org/svn/filemanager/trunk/mediastream
+#cd /var/www/rutorrent/plugins/
+#svn co http://svn.rutorrent.org/svn/filemanager/trunk/mediastream
 
-cd /var/www/rutorrent/plugins/
-svn co http://svn.rutorrent.org/svn/filemanager/trunk/filemanager
+#cd /var/www/rutorrent/plugins/
+#svn co http://svn.rutorrent.org/svn/filemanager/trunk/filemanager
 
-cp /etc/miscript/rutorrent.plugins.filemanager.conf.php.template /var/www/rutorrent/plugins/filemanager/conf.php
+cp /etc/seedbox/rutorrent.plugins.filemanager.conf.php.template /var/www/rutorrent/plugins/filemanager/conf.php
 
 mkdir -p /var/www/stream/
 ln -s /var/www/rutorrent/plugins/mediastream/view.php /var/www/stream/view.php
@@ -599,7 +598,7 @@ echo "<?php \$streampath = 'http://$IPADDRESS1/stream/view.php'; ?>" | tee /var/
 
 # 32.2 # FILEUPLOAD
 cd /var/www/rutorrent/plugins/
-svn co http://svn.rutorrent.org/svn/filemanager/trunk/fileupload
+#svn co http://svn.rutorrent.org/svn/filemanager/trunk/fileupload
 chmod 775 /var/www/rutorrent/plugins/fileupload/scripts/upload
 wget -O /tmp/plowshare.deb http://plowshare.googlecode.com/files/plowshare_1~git20120930-1_all.deb
 dpkg -i /tmp/plowshare.deb
@@ -616,7 +615,7 @@ perl -pi -e "s/\\\$this\-\>userdir \= addslash\(\\\$topDirectory\)\;/\\\$this\-\
 perl -pi -e "s/\\\$topDirectory/\\\$homeDirectory/g" /var/www/rutorrent/plugins/filemanager/settings.js.php
 
 #32.4
-#unzip /etc/miscript/rutorrent-oblivion.zip -d /var/www/rutorrent/plugins/
+#unzip /etc/seedbox/rutorrent-oblivion.zip -d /var/www/rutorrent/plugins/
 #echo "" | tee -a /var/www/rutorrent/css/style.css > /dev/null
 #echo "/* for Oblivion */" | tee -a /var/www/rutorrent/css/style.css > /dev/null
 #echo ".meter-value-start-color { background-color: #E05400 }" | tee -a /var/www/rutorrent/css/style.css > /dev/null
@@ -624,31 +623,31 @@ perl -pi -e "s/\\\$topDirectory/\\\$homeDirectory/g" /var/www/rutorrent/plugins/
 #echo "::-webkit-scrollbar {width:12px;height:12px;padding:0px;margin:0px;}" | tee -a /var/www/rutorrent/css/style.css > /dev/null
 #perl -pi -e "s/\$defaultTheme \= \"\"\;/\$defaultTheme \= \"Oblivion\"\;/g" /var/www/rutorrent/plugins/theme/conf.php
 
-ln -s /etc/miscript/seedboxInfo.php.template /var/www/seedboxInfo.php
+ln -s /etc/seedbox/seedboxInfo.php.template /var/www/seedboxInfo.php
 
 # 32.5
 
 cd /var/www/rutorrent/plugins/
-rm -r /var/www/rutorrent/plugins/fileshare
-rm -r /var/www/share
-svn co http://svn.rutorrent.org/svn/filemanager/trunk/fileshare
+#rm -r /var/www/rutorrent/plugins/fileshare
+#rm -r /var/www/share
+#svn co http://svn.rutorrent.org/svn/filemanager/trunk/fileshare
 mkdir /var/www/share
 ln -s /var/www/rutorrent/plugins/fileshare/share.php /var/www/share/share.php
 ln -s /var/www/rutorrent/plugins/fileshare/share.php /var/www/share/index.php
 chown -R www-data:www-data /var/www/share
-cp /etc/miscript/rutorrent.plugins.fileshare.conf.php.template /var/www/rutorrent/plugins/fileshare/conf.php
+cp /etc/seedbox/rutorrent.plugins.fileshare.conf.php.template /var/www/rutorrent/plugins/fileshare/conf.php
 perl -pi -e "s/<servername>/$IPADDRESS1/g" /var/www/rutorrent/plugins/fileshare/conf.php
 
 # 33.
 
-bash /etc/miscript/updateExecutables
+bash /etc/seedbox/updateExecutables
 
 #34.
 
-echo $SBFSCURRENTVERSION1 > /etc/miscript/version.info
-echo $NEWFTPPORT1 > /etc/miscript/ftp.info
-echo $NEWSSHPORT1 > /etc/miscript/ssh.info
-echo $OPENVPNPORT1 > /etc/miscript/openvpn.info
+echo $SBFSCURRENTVERSION1 > /etc/seedbox/version.info
+echo $NEWFTPPORT1 > /etc/seedbox/ftp.info
+echo $NEWSSHPORT1 > /etc/seedbox/ssh.info
+echo $OPENVPNPORT1 > /etc/seedbox/openvpn.info
 
 # 36.
 
@@ -658,27 +657,27 @@ c_rehash
 
 # 96.
 
-if [ "$INSTALLOPENVPN1" = "YES" ]; then
-  bash /etc/miscript/installOpenVPN
-fi
+#if [ "$INSTALLOPENVPN1" = "YES" ]; then
+#  bash /etc/seedbox/installOpenVPN
+#fi
 
-if [ "$INSTALLSABNZBD1" = "YES" ]; then
-  bash /etc/miscript/installSABnzbd
-fi
+#if [ "$INSTALLSABNZBD1" = "YES" ]; then
+#  bash /etc/seedbox/installSABnzbd
+#fi
 
-if [ "$INSTALLRAPIDLEECH1" = "YES" ]; then
-  bash /etc/miscript/installRapidleech
-fi
+#if [ "$INSTALLRAPIDLEECH1" = "YES" ]; then
+#  bash /etc/seedbox/installRapidleech
+#fi
 
-if [ "$INSTALLDELUGE1" = "YES" ]; then
-  bash /etc/miscript/installDeluge
-fi
+#if [ "$INSTALLDELUGE1" = "YES" ]; then
+#  bash /etc/seedbox/installDeluge
+#fi
 
 # 97.
 
 #first user will not be jailed
 #  createSeedboxUser <username> <password> <user jailed?> <ssh access?> <?>
-bash /etc/miscript/createSeedboxUser $NEWUSER1 $PASSWORD1 YES YES YES
+bash /etc/seedbox/createSeedboxUser $NEWUSER1 $PASSWORD1 YES YES YES
 
 # 98.
 

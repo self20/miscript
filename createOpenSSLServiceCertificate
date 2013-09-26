@@ -24,22 +24,22 @@
 ######################################################################
 #
 
-sudo mkdir -p /etc/seedbox/ssl/CA
-sudo chmod 777 /etc/seedbox/ssl/CA
-cd /etc/seedbox/ssl/CA
+sudo mkdir -p /etc/miscript/ssl/CA
+sudo chmod 777 /etc/miscript/ssl/CA
+cd /etc/miscript/ssl/CA
 
-IPADDRESS1=`cat /etc/seedbox/hostname.info`
-NEWUSER1=`cat /etc/seedbox/mainuser.info`
+IPADDRESS1=`cat /etc/miscript/hostname.info`
+NEWUSER1=`cat /etc/miscript/mainuser.info`
 SERVICENAME1=$1
 SUBJ1="/C=US/ST=Denial/L=Springfield/O=Dis/CN=$IPADDRESS1/emailAddress=root@$NEWUSER1.com/OU=$NEWUSER1"
-CERTPASS1=`cat /etc/seedbox/certpass.info`
+CERTPASS1=`cat /etc/miscript/certpass.info`
 
-sudo openssl genrsa 1024 | sudo tee /etc/seedbox/ssl/CA/$SERVICENAME1.key
-sudo openssl req -new -x509 -nodes -sha1 -days 365 -key /etc/seedbox/ssl/CA/$SERVICENAME1.key -config /etc/seedbox/ssl/CA/caconfig.cnf -batch -subj $SUBJ1 | sudo tee /etc/seedbox/ssl/CA/$SERVICENAME1.cert
-sudo openssl ca -batch -keyfile /etc/seedbox/ssl/CA/private/cakey.pem -passin pass:$CERTPASS1 -subj $SUBJ1 -out /etc/seedbox/ssl/CA/$SERVICENAME1.pem -config /etc/seedbox/ssl/CA/caconfig.cnf -passin pass:$CERTPASS1 -ss_cert /etc/seedbox/ssl/CA/$SERVICENAME1.cert
-sudo cp /etc/seedbox/ssl/CA/$SERVICENAME1.* /etc/seedbox/ssl/
-sudo chmod 600 /etc/seedbox/ssl/*
-sudo chmod 644 /etc/seedbox/ssl/cert.pem
-sudo chmod 644 /etc/seedbox/ssl/key.pem
+sudo openssl genrsa 1024 | sudo tee /etc/miscript/ssl/CA/$SERVICENAME1.key
+sudo openssl req -new -x509 -nodes -sha1 -days 365 -key /etc/miscript/ssl/CA/$SERVICENAME1.key -config /etc/miscript/ssl/CA/caconfig.cnf -batch -subj $SUBJ1 | sudo tee /etc/miscript/ssl/CA/$SERVICENAME1.cert
+sudo openssl ca -batch -keyfile /etc/miscript/ssl/CA/private/cakey.pem -passin pass:$CERTPASS1 -subj $SUBJ1 -out /etc/miscript/ssl/CA/$SERVICENAME1.pem -config /etc/miscript/ssl/CA/caconfig.cnf -passin pass:$CERTPASS1 -ss_cert /etc/miscript/ssl/CA/$SERVICENAME1.cert
+sudo cp /etc/miscript/ssl/CA/$SERVICENAME1.* /etc/miscript/ssl/
+sudo chmod 600 /etc/miscript/ssl/*
+sudo chmod 644 /etc/miscript/ssl/cert.pem
+sudo chmod 644 /etc/miscript/ssl/key.pem
 
 ##################### LAST LINE ###########

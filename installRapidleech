@@ -29,5 +29,5 @@ sudo svn checkout http://rapidleech.googlecode.com/svn/trunk/ /var/www/rapidleec
 sudo chown -R www-data: /var/www/rapidleech/files
 sudo chown -R www-data: /var/www/rapidleech/configs
 
-echo "Rapidleech is installed" | sudo tee /etc/seedbox/rapidleech.info &> /dev/null
-cat /etc/seedbox/rapidleech.info
+echo "Rapidleech is installed" | sudo tee /etc/miscript/rapidleech.info &> /dev/null
+cat /etc/miscript/rapidleech.info

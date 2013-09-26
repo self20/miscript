@@ -23,38 +23,38 @@
 ######################################################################
 #
 
-CERTPASS1=`cat /etc/seedbox/certpass.info`
-IPADDRESS1=`cat /etc/seedbox/hostname.info`
-NEWUSER1=`cat /etc/seedbox/mainuser.info`
-cd /etc/seedbox/
-rm -r /etc/seedbox/ssl/CA
-mkdir -p /etc/seedbox/ssl/CA/newcerts
-mkdir -p /etc/seedbox/ssl/CA/private
-cd /etc/seedbox/ssl/CA
+CERTPASS1=`cat /etc/miscript/certpass.info`
+IPADDRESS1=`cat /etc/miscript/hostname.info`
+NEWUSER1=`cat /etc/miscript/mainuser.info`
+cd /etc/miscript/
+rm -r /etc/miscript/ssl/CA
+mkdir -p /etc/miscript/ssl/CA/newcerts
+mkdir -p /etc/miscript/ssl/CA/private
+cd /etc/miscript/ssl/CA
 
 echo '01' > serial  && touch index.txt
-cp /etc/seedbox/root.ca.cacert.conf.template /etc/seedbox/ssl/CA/caconfig.cnf
-perl -pi -e "s/<username>/$NEWUSER1/g" /etc/seedbox/ssl/CA/caconfig.cnf
-perl -pi -e "s/<servername>/$IPADDRESS1/g" /etc/seedbox/ssl/CA/caconfig.cnf
+cp /etc/miscript/root.ca.cacert.conf.template /etc/miscript/ssl/CA/caconfig.cnf
+perl -pi -e "s/<username>/$NEWUSER1/g" /etc/miscript/ssl/CA/caconfig.cnf
+perl -pi -e "s/<servername>/$IPADDRESS1/g" /etc/miscript/ssl/CA/caconfig.cnf
 
-openssl req -new -x509 -extensions v3_ca -keyout private/cakey.pem -passout pass:$CERTPASS1 -out cacert.pem -days 3650 -config /etc/seedbox/ssl/CA/caconfig.cnf
-openssl req -new -nodes -out /etc/seedbox/ssl/CA/req.pem -passout pass:$CERTPASS1 -config /etc/seedbox/ssl/CA/caconfig.cnf
-openssl ca -batch -out /etc/seedbox/ssl/CA/cert.pem -config /etc/seedbox/ssl/CA/caconfig.cnf -passin pass:$CERTPASS1 -infiles /etc/seedbox/ssl/CA/req.pem
-mv /etc/seedbox/ssl/CA/cert.pem /etc/seedbox/ssl/CA/tmp.pem
-openssl x509 -in /etc/seedbox/ssl/CA/tmp.pem -out /etc/seedbox/ssl/CA/cert.pem
-cat /etc/seedbox/ssl/CA/key.pem /etc/seedbox/ssl/CA/cert.pem > /etc/seedbox/ssl/CA/key-cert.pem
+openssl req -new -x509 -extensions v3_ca -keyout private/cakey.pem -passout pass:$CERTPASS1 -out cacert.pem -days 3650 -config /etc/miscript/ssl/CA/caconfig.cnf
+openssl req -new -nodes -out /etc/miscript/ssl/CA/req.pem -passout pass:$CERTPASS1 -config /etc/miscript/ssl/CA/caconfig.cnf
+openssl ca -batch -out /etc/miscript/ssl/CA/cert.pem -config /etc/miscript/ssl/CA/caconfig.cnf -passin pass:$CERTPASS1 -infiles /etc/miscript/ssl/CA/req.pem
+mv /etc/miscript/ssl/CA/cert.pem /etc/miscript/ssl/CA/tmp.pem
+openssl x509 -in /etc/miscript/ssl/CA/tmp.pem -out /etc/miscript/ssl/CA/cert.pem
+cat /etc/miscript/ssl/CA/key.pem /etc/miscript/ssl/CA/cert.pem > /etc/miscript/ssl/CA/key-cert.pem
 
-cp /etc/seedbox/ssl/CA/cacert.pem /etc/seedbox/ssl
-cp /etc/seedbox/ssl/CA/cert.pem /etc/seedbox/ssl
-cp /etc/seedbox/ssl/CA/key-cert.pem /etc/seedbox/ssl
-cp /etc/seedbox/ssl/CA/key.pem /etc/seedbox/ssl
-cp /etc/seedbox/ssl/CA/private/cakey.pem /etc/seedbox/ssl
-cp /etc/seedbox/ssl/CA/req.pem /etc/seedbox/ssl
+cp /etc/miscript/ssl/CA/cacert.pem /etc/miscript/ssl
+cp /etc/miscript/ssl/CA/cert.pem /etc/miscript/ssl
+cp /etc/miscript/ssl/CA/key-cert.pem /etc/miscript/ssl
+cp /etc/miscript/ssl/CA/key.pem /etc/miscript/ssl
+cp /etc/miscript/ssl/CA/private/cakey.pem /etc/miscript/ssl
+cp /etc/miscript/ssl/CA/req.pem /etc/miscript/ssl
 
-bash /etc/seedbox/createOpenSSLServiceCertificate sabnzbd
+bash /etc/miscript/createOpenSSLServiceCertificate sabnzbd
 
-chmod 600 /etc/seedbox/ssl/*
-chmod 644 /etc/seedbox/ssl/cert.pem
-chmod 644 /etc/seedbox/ssl/key.pem
+chmod 600 /etc/miscript/ssl/*
+chmod 644 /etc/miscript/ssl/cert.pem
+chmod 644 /etc/miscript/ssl/key.pem
 
 ##################### LAST LINE ###########

@@ -6,7 +6,7 @@
 <?php
   error_reporting(E_ALL);
 
-  $dir = '/etc/seedbox/users/';
+  $dir = '/etc/miscript/users/';
   $files = scandir($dir);
 
   foreach($files as $index=>$file) {
@@ -43,7 +43,7 @@
   }
 
   function getScriptVersion() {
-    $data = file("/etc/seedbox/version.info");
+    $data = file("/etc/miscript/version.info");
     return $data[0];
   }
 ?>

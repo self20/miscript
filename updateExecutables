@@ -23,25 +23,25 @@
 ######################################################################
 #
 
-sudo chmod +x /etc/seedbox/updateExecutables
-sudo chmod +x /etc/seedbox/createSeedboxUser
-sudo chmod +x /etc/seedbox/deleteSeedboxUser
-sudo chmod +x /etc/seedbox/installOpenVPN
-sudo chmod +x /etc/seedbox/removeWebmin
-sudo chmod +x /etc/seedbox/installWebmin
-sudo chmod +x /etc/seedbox/downgradeRTorrent
-sudo chmod +x /etc/seedbox/upgradeRTorrent
-sudo chmod +x /etc/seedbox/ovpni
-sudo chmod +x /etc/seedbox/installSABnzbd
-sudo chmod +x /etc/seedbox/updategitRepository
-sudo chmod +x /etc/seedbox/createOpenSSLServiceCertificate
-sudo chmod +x /etc/seedbox/createOpenSSLCACertificate
-sudo chmod +x /etc/seedbox/upgradeSeedbox
-sudo chmod +x /etc/seedbox/installRapidleech
-sudo chmod +x /etc/seedbox/changeUserPassword
-sudo chmod +x /etc/seedbox/installDeluge
-sudo chmod +x /etc/seedbox/installRTorrent
-sudo chmod +x /etc/seedbox/installruTorrentStreamPlugin
-sudo chmod +x /etc/seedbox/installCurl
+sudo chmod +x /etc/miscript/updateExecutables
+sudo chmod +x /etc/miscript/createSeedboxUser
+sudo chmod +x /etc/miscript/deleteSeedboxUser
+sudo chmod +x /etc/miscript/installOpenVPN
+sudo chmod +x /etc/miscript/removeWebmin
+sudo chmod +x /etc/miscript/installWebmin
+sudo chmod +x /etc/miscript/downgradeRTorrent
+sudo chmod +x /etc/miscript/upgradeRTorrent
+sudo chmod +x /etc/miscript/ovpni
+sudo chmod +x /etc/miscript/installSABnzbd
+sudo chmod +x /etc/miscript/updategitRepository
+sudo chmod +x /etc/miscript/createOpenSSLServiceCertificate
+sudo chmod +x /etc/miscript/createOpenSSLCACertificate
+sudo chmod +x /etc/miscript/upgradeSeedbox
+sudo chmod +x /etc/miscript/installRapidleech
+sudo chmod +x /etc/miscript/changeUserPassword
+sudo chmod +x /etc/miscript/installDeluge
+sudo chmod +x /etc/miscript/installRTorrent
+sudo chmod +x /etc/miscript/installruTorrentStreamPlugin
+sudo chmod +x /etc/miscript/installCurl
 
 ##################### LAST LINE ###########

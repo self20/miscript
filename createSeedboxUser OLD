@@ -3,6 +3,27 @@
 #!/bin/bash
 # ---------------------------
 #
+#
+#
+# The Seedbox From Scratch Script
+#   By Notos ---> https://github.com/Notos/
+#
+#
+######################################################################
+#
+#  Copyright (c) 2013 Notos (https://github.com/Notos/)
+#
+#  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+#
+#  The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+#
+#  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+#
+#  --> Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
+#
+######################################################################
+#
+#
 # 3.1
 #
 # you can also use it this way:
@@ -333,11 +354,11 @@ sudo perl -pi -e "s/99888/$NETWORKPORT1/g" $HOMEJAILED1/.rtorrent.rc
 sudo chown $NEWUSER1:$NEWUSER1 $HOMEJAILED1/.rtorrent.rc
 
 # 20.
+sudo mkdir -p $HOMEJAILED1/downloads/.utiles
 sudo mkdir -p $HOMEJAILED1/downloads/auto
 sudo mkdir -p $HOMEJAILED1/downloads/manual
 sudo mkdir -p $HOMEJAILED1/downloads/watch
 sudo mkdir -p $HOMEJAILED1/downloads/.session
-sudo mkdir -p $HOMEJAILED1/downloads/.utiles
 sudo chown -R $NEWUSER1:$NEWUSER1 $HOMEJAILED1/downloads
 sudo mkdir $HOMEJAILED1/log
 sudo chown $NEWUSER1: $HOMEJAILED1/log
@@ -361,14 +382,11 @@ sudo perl -pi -e "s/<https_port>/$SABNZBDHTTPSPORT1/g" $HOMEJAILED1/downloads/.u
 sudo perl -pi -e "s/<http_port>/$SABNZBDHTTPPORT1/g" $HOMEJAILED1/downloads/.utiles/reiniciar
 sudo chown $NEWUSER1: $HOMEJAILED1/downloads/.utiles/reiniciar
 sudo chmod 550 $HOMEJAILED1/downloads/.utiles/reiniciar
-sudo cp /etc/miscript/monitor.template $HOMEJAILED1/downloads/.utiles/monitor
-sudo perl -pi -e "s/<homedir>/$NEWUSER1/g" $HOMEJAILED1/downloads/.utiles/monitor
-sudo chmod +x $HOMEJAILED1/downloads/.utiles/monitor
-sudo chown $NEWUSER1: $HOMEJAILED1/downloads/.utiles/monitor
-sudo chmod 550 $HOMEJAILED1/downloads/.utiles/monitor
-sudo cp /etc/miscript/monitor.tarea.template /var/spool/cron/crontabs/$NEWUSER1
-sudo perl -pi -e "s/<username>/$NEWUSER1/g" /var/spool/cron/crontabs/$NEWUSER1
-sudo chown $NEWUSER1: /var/spool/cron/crontabs/$NEWUSER1
+sudo cp /etc/miscript/cron.template $HOMEJAILED1/downloads/.utiles/cron
+sudo perl -pi -e "s/<homedir>/$NEWUSER1/g" $HOMEJAILED1/downloads/.utiles/cron
+sudo chmod +x $HOMEJAILED1/downloads/.utiles/cron
+sudo chown $NEWUSER1: $HOMEJAILED1/downloads/.utiles/cron
+sudo chmod 550 $HOMEJAILED1/downloads/.utiles/cron
 
 # 22.
 # prepare the tree
@@ -562,9 +580,9 @@ sudo perl -pi -e "s/<PORT>/$IRSSIPORT1/g"  $HOMEJAILED1/.autodl/autodl.cfg
 sudo perl -pi -e "s/use Digest\:\:SHA1 qw/use Digest\:\:SHA qw/g" $HOMEJAILED1/.irssi/scripts/AutodlIrssi/MatchedRelease.pm
 
 if [ "$CHROOTJAIL1" == "YES" ]; then
-  sudo jk_chrootlaunch -u $NEWUSER1 -j $JAILDIR1 -x /bin/bash -- /reiniciar
+  sudo jk_chrootlaunch -u $NEWUSER1 -j $JAILDIR1 -x /bin/bash -- /restartSeedbox
 else
-  sudo su --login --command "$HOMEJAILED1/reiniciar" $NEWUSER1
+  sudo su --login --command "$HOMEJAILED1/downloads/.utiles/reiniciar" $NEWUSER1
 fi
 
 sudo chown -R $NEWUSER1:$NEWUSER1  $HOMEJAILED1/.autodl
@@ -630,8 +648,8 @@ echo "OpenVPN config: https://$IPADDRESS1/rutorrent/vpn.zip" | sudo tee -a /etc/
 echo "" | sudo tee -a /etc/miscript/users/$NEWUSER1.info
 echo "Starting and restartring commands" | sudo tee -a /etc/miscript/users/$NEWUSER1.info
 echo "---------------------------------" | sudo tee -a /etc/miscript/users/$NEWUSER1.info
-echo "Restarting seedbox logged as $NEWUSER1: $HOMEJAILED1/reiniciar" | sudo tee -a /etc/miscript/users/$NEWUSER1.info
-echo "Restarting seedbox as any other user: sudo su --login --command \"$HOMEJAILED1/reiniciar\" $NEWUSER1" | sudo tee -a /etc/miscript/users/$NEWUSER1.info
+echo "Restarting seedbox logged as $NEWUSER1: $HOMEJAILED1/downloads/.utiles/reiniciar" | sudo tee -a /etc/miscript/users/$NEWUSER1.info
+echo "Restarting seedbox as any other user: sudo su --login --command \"$HOMEJAILED1/downloads/.utiles/reiniciar\" $NEWUSER1" | sudo tee -a /etc/miscript/users/$NEWUSER1.info
 echo "Starting RTorrent: screen -d -m -S rtorrent rtorrent" | sudo tee -a /etc/miscript/users/$NEWUSER1.info
 echo "Starting IRSSI: screen -d -m -S irssi irssi" | sudo tee -a /etc/miscript/users/$NEWUSER1.info
 echo "Starting sabnzbdplus: screen -dmS sabnzbd sabnzbdplus" | sudo tee -a /etc/miscript/users/$NEWUSER1.info

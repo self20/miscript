@@ -24,5 +24,5 @@
 
 sudo rm -r /var/www/rutorrent/plugins/stream/
 cd /var/www/rutorrent/plugins
-sudo tar xvfz /etc/seedbox/rutorrent-stream.tar.gz
+sudo tar xvfz /etc/miscript/rutorrent-stream.tar.gz
 sudo perl -pi -e "s/\/stream.php/\/rutorrent\/plugins\/stream\/stream.php/g" /var/www/rutorrent/plugins/stream/action.php

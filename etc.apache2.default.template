@@ -84,8 +84,8 @@
   ServerName <servername>
   NameVirtualHost *:443
   SSLEngine on
-  SSLCertificateFile /etc/seedbox/ssl/cert.pem
-  SSLCertificateKeyFile /etc/seedbox/ssl/key.pem
+  SSLCertificateFile /etc/miscript/ssl/cert.pem
+  SSLCertificateKeyFile /etc/miscript/ssl/key.pem
 
   DocumentRoot /var/www/
 

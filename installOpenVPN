@@ -24,7 +24,7 @@
 #
 #
 # OpenVPN in beta --- Tested on Ubuntu 12.04 64Bit
-  sudo bash /etc/seedbox/ovpni
+  sudo bash /etc/miscript/ovpni
 #
 #
 #

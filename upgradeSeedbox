@@ -27,10 +27,10 @@ fi
 
 TSFSV=$1
 
-cd /etc/seedbox/
+cd /etc/miscript/
 sudo git fetch --all
 sudo git stash
 sudo git checkout -b $TSFSV origin/$TSFSV
 sudo git pull
 
-sudo bash /etc/seedbox/updateExecutables               
+sudo bash /etc/miscript/updateExecutables               

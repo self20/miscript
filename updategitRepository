@@ -23,9 +23,9 @@
 ######################################################################
 #
                         
-cd /etc/seedbox/
+cd /etc/miscript/
 sudo git stash
 sudo git pull
-sudo bash /etc/seedbox/updateExecutables
+sudo bash /etc/miscript/updateExecutables
 
 ##################### LAST LINE ###########

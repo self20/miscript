@@ -22,7 +22,7 @@
 NEWUSER1=lefteris
 HOMEJAILED1=/home/lefteris
 
-cd /etc/seedbox/
+cd /etc/miscript/
 sudo wget http://libtorrent.rakshasa.no/downloads/rtorrent_fast_resume.pl
 sudo chmod 755 rtorrent_fast_resume.pl
 
