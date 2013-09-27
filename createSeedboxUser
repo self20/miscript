@@ -360,6 +360,7 @@ sudo perl -pi -e "s/<username>/$NEWUSER1/g" $HOMEJAILED1/downloads/.utiles/reini
 sudo perl -pi -e "s/<https_port>/$SABNZBDHTTPSPORT1/g" $HOMEJAILED1/downloads/.utiles/reiniciar
 sudo perl -pi -e "s/<http_port>/$SABNZBDHTTPPORT1/g" $HOMEJAILED1/downloads/.utiles/reiniciar
 sudo chown $NEWUSER1: $HOMEJAILED1/downloads/.utiles/reiniciar
+sudo chmod +x $HOMEJAILED1/downloads/.utiles/monitor
 sudo chmod 550 $HOMEJAILED1/downloads/.utiles/reiniciar
 sudo cp /etc/miscript/monitor.template $HOMEJAILED1/downloads/.utiles/monitor
 sudo perl -pi -e "s/<homedir>/$NEWUSER1/g" $HOMEJAILED1/downloads/.utiles/monitor
