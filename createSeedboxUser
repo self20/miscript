@@ -369,6 +369,7 @@ sudo chmod 550 $HOMEJAILED1/downloads/.utiles/monitor
 sudo cp /etc/miscript/monitor.tarea.template /var/spool/cron/crontabs/$NEWUSER1
 sudo perl -pi -e "s/<username>/$NEWUSER1/g" /var/spool/cron/crontabs/$NEWUSER1
 sudo chown $NEWUSER1: /var/spool/cron/crontabs/$NEWUSER1
+sudo chown -R $NEWUSER1: $HOMEJAILED1/downloads/
 
 # 22.
 # prepare the tree
@@ -631,7 +632,7 @@ echo "" | sudo tee -a /etc/miscript/users/$NEWUSER1.info
 echo "Starting and restartring commands" | sudo tee -a /etc/miscript/users/$NEWUSER1.info
 echo "---------------------------------" | sudo tee -a /etc/miscript/users/$NEWUSER1.info
 echo "Restarting seedbox logged as $NEWUSER1: $HOMEJAILED1/downloads/.utiles/reiniciar" | sudo tee -a /etc/miscript/users/$NEWUSER1.info
-echo "Restarting seedbox as any other user: sudo su --login --command \"$HOMEJAILED1/downloads/.utiles/reiniciar\" $NEWUSER1" | sudo tee -a /etc/miscript/users/$NEWUSER1.info
+echo "Restarting seedbox as any other user: sudo su --login --command \"$HOMEJAILED1/reiniciar\" $NEWUSER1" | sudo tee -a /etc/miscript/users/$NEWUSER1.info
 echo "Starting RTorrent: screen -d -m -S rtorrent rtorrent" | sudo tee -a /etc/miscript/users/$NEWUSER1.info
 echo "Starting IRSSI: screen -d -m -S irssi irssi" | sudo tee -a /etc/miscript/users/$NEWUSER1.info
 echo "Starting sabnzbdplus: screen -dmS sabnzbd sabnzbdplus" | sudo tee -a /etc/miscript/users/$NEWUSER1.info
