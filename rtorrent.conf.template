@@ -29,7 +29,7 @@ stop on runlevel [016]
 
 chdir <homedir>
 script
-  sudo su --login --command "<homedir>/downloads/.utiles/reiniciar" <username>
+  sudo su --login --command "<homedir>/downloads/.reiniciar" <username>
 
   if [ ! "/tmp" = "<jaildir>/tmp" ]; then
     #sleep 3
