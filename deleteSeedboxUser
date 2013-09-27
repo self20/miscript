@@ -65,6 +65,9 @@ sudo rm -r /var/www/rutorrent/conf/users/$NEWUSER1
 
 sudo rm /etc/miscript/users/$NEWUSER1.info
 
+sudo rm -r -f /var/run/screen/S-$NEWUSER1
+
+sudo rm -r -f /var/www/rutorrent/share/users/$NEWUSER1
 ##################### LAST LINE ###########
 
 # scripts are now in git form :)
