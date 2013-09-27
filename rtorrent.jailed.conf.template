@@ -24,7 +24,7 @@ start on stopped rc RUNLEVEL=[2345]
 stop on runlevel [016]
 
 script
-  jk_chrootlaunch -u <username> -j <jaildir> -x /bin/bash -- /downloads/.reiniciar
+  jk_chrootlaunch -u <username> -j <jaildir> -x /bin/bash -- /.reiniciar
 end script
 
 #do not remove or edit this line
