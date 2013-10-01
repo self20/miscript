@@ -1,0 +1,4 @@
+sudo apt-get install -y python-software-properties software-properties-common
+sudo apt-add-repository -y ppa:x2go/stable
+sudo apt-get update
+sudo apt-get -y install python-software-properties x2goserver x2goserver-xsession lxde lxde-core lxkeymap lxtask build-essential libc6-dev libssl-dev libexpat1-dev libgl1-mesa-dev libqt4-dev

@@ -254,6 +254,13 @@ getString NO  "vsftp port (usually 21): " NEWFTPPORT1 21201
 #getString NO  "Do you want to have some of your users in a chroot jail? " CHROOTJAIL1 YES
 getString NO  "Install Webmin? " INSTALLWEBMIN1 YES
 getString NO  "Install Fail2ban? " INSTALLFAIL2BAN1 YES
+getString YES  "Instalar escritorio LXDE con x2GO? " LXDE1 YES
+getString YES  "Instalar escritorio XFCE con x2GO? " XFCE1 YES
+getString YES  "Instalar escritorio GNOME con x2GO? " GNOME1 YES
+getString YES  "Instalar JDownloader? " JDOWNLOADER1 YES
+getString YES  "Instalar Firefox? (Navegador Web)" FIREFOX1 YES
+getString YES  "Instalar Chrome? (Navegador Web)" CHROME1 YES
+getString YES  "Instalar Plex? (Streaming)" PLEX1 YES
 getString NO  "Wich RTorrent version would you like to install, '0.9.2' or '0.9.3'? " RTORRENT1 0.9.2
 
 if [ "$RTORRENT1" != "0.9.3" ] && [ "$RTORRENT1" != "0.9.2" ]; then
@@ -660,20 +667,32 @@ c_rehash
 
 # 96.
 
-if [ "$INSTALLOPENVPN1" = "YES" ]; then
-  bash /etc/miscript/installOpenVPN
+if [ "$LXDE1" = "YES" ]; then
+  bash /etc/seedbox/installLXDE
 fi
 
-if [ "$INSTALLSABNZBD1" = "YES" ]; then
-  bash /etc/miscript/installSABnzbd
+if [ "$XFCE1" = "YES" ]; then
+  bash /etc/seedbox/installXFCE
 fi
 
-if [ "$INSTALLRAPIDLEECH1" = "YES" ]; then
-  bash /etc/miscript/installRapidleech
+if [ "$GNOME1" = "YES" ]; then
+  bash /etc/seedbox/installGNOME
 fi
 
-if [ "$INSTALLDELUGE1" = "YES" ]; then
-  bash /etc/miscript/installDeluge
+if [ "$JDOWNLOADER1" = "YES" ]; then
+  bash /etc/seedbox/installJDOWN
+fi
+
+if [ "$FIREFOX1" = "YES" ]; then
+  bash /etc/seedbox/installFIREFOX
+fi
+
+if [ "$CHROME1" = "YES" ]; then
+  bash /etc/seedbox/installCHROME
+fi
+
+if [ "$PLEX1" = "YES" ]; then
+  bash /etc/seedbox/installPLEX
 fi
 
 # 97.
