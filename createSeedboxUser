@@ -637,9 +637,9 @@ echo "Starting RTorrent: screen -d -m -S rtorrent rtorrent" | sudo tee -a /etc/m
 echo "Starting IRSSI: screen -d -m -S irssi irssi" | sudo tee -a /etc/miscript/users/$NEWUSER1.info
 echo "Starting sabnzbdplus: screen -dmS sabnzbd sabnzbdplus" | sudo tee -a /etc/miscript/users/$NEWUSER1.info
 
-cp /etc/miscript/users/$NEWUSER1.info $HOMEJAILED1/$NEWUSER1.info
-sudo chown $NEWUSER1: $HOMEJAILED1/$NEWUSER1.info
-sudo chmod 400 $HOMEJAILED1/$NEWUSER1.info
+#cp /etc/miscript/users/$NEWUSER1.info $HOMEJAILED1/$NEWUSER1.info
+#sudo chown $NEWUSER1: $HOMEJAILED1/$NEWUSER1.info
+#sudo chmod 400 $HOMEJAILED1/$NEWUSER1.info
 
 set +x verbose
 clear
