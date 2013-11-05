@@ -391,7 +391,6 @@ $restrictedTrackers = array(
 	"thehawks",
 	"thetorrentsite",
 	"todotorrents",
-	"torrent",
 	"torrentbar",
 	"torrentbox",
 	"torrentdownloads",
