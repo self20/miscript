@@ -43,5 +43,13 @@ sudo chmod +x /etc/miscript/installDeluge
 sudo chmod +x /etc/miscript/installRTorrent
 sudo chmod +x /etc/miscript/installruTorrentStreamPlugin
 sudo chmod +x /etc/miscript/installCurl
+sudo chmod +x /etc/miscript/installLXDE
+sudo chmod +x /etc/miscript/installXFCE
+sudo chmod +x /etc/miscript/installGNOME
+sudo chmod +x /etc/miscript/installJDOWN
+sudo chmod +x /etc/miscript/installFIREFOX
+sudo chmod +x /etc/miscript/installCHROME
+sudo chmod +x /etc/miscript/installPLEX
+sudo chmod +x /etc/miscript/installx2GO
 
 ##################### LAST LINE ###########

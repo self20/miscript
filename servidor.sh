@@ -254,13 +254,13 @@ getString NO  "vsftp port (usually 21): " NEWFTPPORT1 21201
 #getString NO  "Do you want to have some of your users in a chroot jail? " CHROOTJAIL1 YES
 getString NO  "Install Webmin? " INSTALLWEBMIN1 YES
 getString NO  "Install Fail2ban? " INSTALLFAIL2BAN1 YES
-getString YES  "Instalar escritorio LXDE con x2GO? " LXDE1 YES
-getString YES  "Instalar escritorio XFCE con x2GO? " XFCE1 YES
-getString YES  "Instalar escritorio GNOME con x2GO? " GNOME1 YES
-getString YES  "Instalar JDownloader? " JDOWNLOADER1 YES
-getString YES  "Instalar Firefox? (Navegador Web)" FIREFOX1 YES
-getString YES  "Instalar Chrome? (Navegador Web)" CHROME1 YES
-getString YES  "Instalar Plex? (Streaming)" PLEX1 YES
+getString NO  "Instalar escritorio LXDE con x2GO? " LXDE1 YES
+getString NO  "Instalar escritorio XFCE con x2GO? " XFCE1 YES
+getString NO  "Instalar escritorio GNOME con x2GO? " GNOME1 YES
+getString NO  "Instalar JDownloader? " JDOWNLOADER1 YES
+getString NO  "Instalar Firefox? (Navegador Web)" FIREFOX1 YES
+getString NO  "Instalar Chrome? (Navegador Web)" CHROME1 YES
+getString NO  "Instalar Plex? (Streaming)" PLEX1 YES
 getString NO  "Wich RTorrent version would you like to install, '0.9.2' or '0.9.3'? " RTORRENT1 0.9.2
 
 if [ "$RTORRENT1" != "0.9.3" ] && [ "$RTORRENT1" != "0.9.2" ]; then
@@ -668,33 +668,36 @@ c_rehash
 # 96.
 
 if [ "$LXDE1" = "YES" ]; then
-  bash /etc/seedbox/installLXDE
+  bash /etc/miscript/installLXDE
 fi
 
 if [ "$XFCE1" = "YES" ]; then
-  bash /etc/seedbox/installXFCE
+  bash /etc/miscript/installXFCE
 fi
 
 if [ "$GNOME1" = "YES" ]; then
-  bash /etc/seedbox/installGNOME
+  bash /etc/miscript/installGNOME
 fi
 
 if [ "$JDOWNLOADER1" = "YES" ]; then
-  bash /etc/seedbox/installJDOWN
+  bash /etc/miscript/installJDOWN
 fi
 
 if [ "$FIREFOX1" = "YES" ]; then
-  bash /etc/seedbox/installFIREFOX
+  bash /etc/miscript/installFIREFOX
 fi
 
 if [ "$CHROME1" = "YES" ]; then
-  bash /etc/seedbox/installCHROME
+  bash /etc/miscript/installCHROME
 fi
 
 if [ "$PLEX1" = "YES" ]; then
-  bash /etc/seedbox/installPLEX
+  bash /etc/miscript/installPLEX
 fi
 
+if [ "$X2GO1" = "YES" ]; then
+  bash /etc/miscript/installx2GO
+fi
 # 97.
 
 #first user will not be jailed
