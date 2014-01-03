@@ -1,21 +1,4 @@
 #
-#
-# The Seedbox From Scratch Script
-#   By Notos ---> https://github.com/Notos/
-#
-#
-######################################################################
-#
-#  Copyright (c) 2013 Notos (https://github.com/Notos/)
-#
-#  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-#
-#  The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-#
-#  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-#
-#  --> Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
-#
 ######################################################################
 #
 #
@@ -39,19 +22,19 @@
 # 
 # maximum number of simultaneous uploads per torrent 
 # throttle.max_uploads.set = 30
-max_uploads = 30 
+max_uploads = 100 
  
 # maximum and minimum number of peers to connect to per torrent 
 # throttle.min_peers.normal.set = 40 
 # throttle.max_peers.normal.set = 100 
-min_peers = 40 
-max_peers = 100 
+min_peers = 10 
+max_peers = 1000 
  
 # same as above but for seeding completed torrents (-1 = same as downloading) 
 # throttle.min_peers.seed.set = 25
 # throttle.max_peers.seed.set = 60 
-min_peers_seed = 25 
-max_peers_seed = 60 
+min_peers_seed = 10 
+max_peers_seed = 1000 
  
 # tracker_numwant = -1
 trackers.numwant.set = -1
@@ -95,7 +78,7 @@ pieces.memory.max.set = 3500M
  
 # max number of files to keep open simultaneously 
 # max_open_files = 192 
-network.max_open_files.set = 192 
+network.max_open_files.set = 256 
  
 # max_open_http = 32 
 network.http.max_open.set = 32
