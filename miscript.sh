@@ -603,7 +603,7 @@ echo "<?php \$streampath = 'http://$IPADDRESS1/stream/view.php'; ?>" | tee /var/
 cd /var/www/rutorrent/plugins/
 svn co http://svn.rutorrent.org/svn/filemanager/trunk/fileupload
 chmod 775 /var/www/rutorrent/plugins/fileupload/scripts/upload
-wget -O /tmp/plowshare.deb http://plowshare.googlecode.com/files/plowshare_1~git20120930-1_all.deb
+wget -O /tmp/plowshare.deb http://plowshare.googlecode.com/files/plowshare3_1%7Egit20131130.71f7550-1_all.deb
 dpkg -i /tmp/plowshare.deb
 apt-get --yes -f install
 
