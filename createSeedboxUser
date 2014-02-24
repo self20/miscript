@@ -365,10 +365,10 @@ sudo cp /etc/miscript/monitor.template $HOMEJAILED1/.utiles/monitor
 sudo perl -pi -e "s/<username>/$NEWUSER1/g" $HOMEJAILED1/.utiles/monitor
 sudo chmod +x $HOMEJAILED1/.utiles/monitor
 sudo chown $NEWUSER1: $HOMEJAILED1/.utiles/monitor
-sudo chmod 550 $HOMEJAILED1/.utiles/monitor
-sudo cp /etc/miscript/monitor.tarea.template /var/spool/cron/crontabs/$NEWUSER1
-sudo perl -pi -e "s/<username>/$NEWUSER1/g" /var/spool/cron/crontabs/$NEWUSER1
-sudo chown $NEWUSER1: /var/spool/cron/crontabs/$NEWUSER1
+#sudo chmod 550 $HOMEJAILED1/.utiles/monitor
+#sudo cp /etc/miscript/monitor.tarea.template /var/spool/cron/crontabs/$NEWUSER1
+#sudo perl -pi -e "s/<username>/$NEWUSER1/g" /var/spool/cron/crontabs/$NEWUSER1
+#sudo chown $NEWUSER1: /var/spool/cron/crontabs/$NEWUSER1
 
 
 # 22.
