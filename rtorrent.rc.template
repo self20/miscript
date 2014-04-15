@@ -46,13 +46,13 @@ check_hash = no
 
 # default directory to save the downloaded torrents
 # directory.default.set = /home/<username>/downloads
-directory = /home/<username>/descargas
+directory = /home/<username>/downloads/manual
  
 # default session directory. make sure you don"t run multiple instances 
 # of rtorrent using the same session directory 
 # perhaps using a relative path? 
 # session.path.set = /home/<username>/downloads/.session
-session = /home/<username>/.session
+session = /home/<username>/downloads/.session
  
  
 # Connection Settings 
@@ -118,7 +118,7 @@ peer_exchange = no
 # stop, close or remove the torrents that are tied to filenames that have been deleted 
  
 # watch a directory for new torrents, and stop those that have been deleted
-schedule = watch_directory,5,5,load_start=/home/<username>/watch/*.torrent
+schedule = watch_directory,5,5,load_start=/home/<username>/downloads/watch/*.torrent
 schedule = untied_directory,5,5,stop_untied= 
  
 # close torrents when diskspace is low. */ 
