@@ -333,8 +333,7 @@ sudo perl -pi -e "s/99888/$NETWORKPORT1/g" $HOMEJAILED1/.rtorrent.rc
 sudo chown $NEWUSER1:$NEWUSER1 $HOMEJAILED1/.rtorrent.rc
 
 # 20.
-sudo mkdir -p $HOMEJAILED1/descargas/auto
-sudo mkdir -p $HOMEJAILED1/descargas/manual
+sudo mkdir -p $HOMEJAILED1/descargas
 sudo mkdir -p $HOMEJAILED1/watch
 sudo mkdir -p $HOMEJAILED1/.session
 sudo mkdir -p $HOMEJAILED1/.utiles
