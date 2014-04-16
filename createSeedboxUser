@@ -338,7 +338,7 @@ sudo mkdir -p $HOMEJAILED1/descargas
 sudo mkdir -p $HOMEJAILED1/watch
 sudo mkdir -p $HOMEJAILED1/.session
 sudo mkdir -p $HOMEJAILED1/.utiles
-sudo chown -R $NEWUSER1:$NEWUSER1 $HOMEJAILED1/descargas
+sudo chown -R $NEWUSER1:$NEWUSER1 $HOMEJAILED1/
 sudo mkdir $HOMEJAILED1/log
 sudo chown $NEWUSER1: $HOMEJAILED1/log
 sudo chmod 770 $HOMEJAILED1/log
