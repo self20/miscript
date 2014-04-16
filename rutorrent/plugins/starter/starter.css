@@ -1,0 +1,8 @@
+.starterConsole {font-size: 11px; font-family: monospace; line-height: 11px; background: #F5F5F5; white-space: pre; overflow: scroll; height: 110px; width: 475px}
+div#dlg_starter {width: 510px; height: 220px}
+div#dlg_starter div.dlg-header {background-image: url(../../images/settings.gif)}
+div#dlg_starter fieldset div {line-height: 16px}
+div#starter_btns {background: none; padding-top: 5px}
+div#t div#starter {background: transparent url(./images/starter.png) no-repeat left center}
+#rutorrentRestart { width: 105px }
+div#st_starter { display: none }

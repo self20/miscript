@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 30
+/svn/starter/!svn/ver/29/trunk
+END
+action.php
+K 25
+svn:wc:ra_dav:version-url
+V 41
+/svn/starter/!svn/ver/26/trunk/action.php
+END
+plugin.info
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/starter/!svn/ver/29/trunk/plugin.info
+END
+init.php
+K 25
+svn:wc:ra_dav:version-url
+V 39
+/svn/starter/!svn/ver/26/trunk/init.php
+END
+starter.php
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/starter/!svn/ver/26/trunk/starter.php
+END
+conf.php
+K 25
+svn:wc:ra_dav:version-url
+V 39
+/svn/starter/!svn/ver/26/trunk/conf.php
+END
+starter.css
+K 25
+svn:wc:ra_dav:version-url
+V 41
+/svn/starter/!svn/ver/9/trunk/starter.css
+END
+init.js
+K 25
+svn:wc:ra_dav:version-url
+V 38
+/svn/starter/!svn/ver/21/trunk/init.js
+END
