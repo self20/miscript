@@ -641,6 +641,18 @@ echo "Starting sabnzbdplus: screen -dmS sabnzbd sabnzbdplus" | sudo tee -a /etc/
 #sudo chown $NEWUSER1: $HOMEJAILED1/$NEWUSER1.info
 #sudo chmod 400 $HOMEJAILED1/$NEWUSER1.info
 
+# Manager
+
+sudo apt-get -y install policykit-1
+sudo mkdir -p /var/www/rutorrent/conf/users/$NEWUSER1/plugins/starter/
+sudo cp /etc/miscript/conf.plugin.template.php /var/www/rutorrent/conf/users/$NEWUSER1/plugins/starter/conf.php
+sudo perl -pi -e "s/<username>/$NEWUSER1/g" /var/www/rutorrent/conf/users/$NEWUSER1/plugins/starter/conf.php
+echo "www-data ALL=(root) NOPASSWD: /etc/init.d/rtorrent.<username> start" | tee -a /etc/sudoers > /dev/null
+sudo perl -pi -e "s/<username>/$NEWUSER1/g" /etc/sudoers
+sudo cp /etc/miscript/rtorrent.user.template /etc/init.d/rtorrent.$NEWUSER1
+sudo chmod 755 /etc/init.d/rtorrent.$NEWUSER1
+sudo perl -pi -e "s/<username>/$NEWUSER1/g" /etc/init.d/rtorrent.$NEWUSER1
+
 set +x verbose
 clear
 echo ""

@@ -684,20 +684,6 @@ bash /etc/miscript/createSeedboxUser $NEWUSER1 $PASSWORD1 YES YES YES
 
 # 98.
 
-# Manager
-
-sudo apt-get -y install policykit-1
-sudo mkdir /var/rutorrent/conf/users/$NEWUSER1/plugins/starter/
-sudo cp /etc/miscript/conf.plugin.template.php /var/rutorrent/conf/users/$NEWUSER1/plugins/starter/conf.php
-sudo perl -pi -e "s/<username>/$NEWUSER1/g" /var/rutorrent/conf/users/$NEWUSER1/plugins/starter/conf.php
-echo "www-data ALL=(root) NOPASSWD: /etc/init.d/rtorrent.<username> start" | tee -a /etc/sudoers > /dev/null
-sudo perl -pi -e "s/<username>/$NEWUSER1/g" /etc/sudoers
-sudo cp /etc/miscript/rtorrent.user.template /etc/init.d/rtorrent.$NEWUSER1
-sudo chmod 755 /etc/init.d/rtorrent.$NEWUSER1
-sudo perl -pi -e "s/<username>/$NEWUSER1/g" /etc/init.d/rtorrent.$NEWUSER1
-
-# 99.
-
 set +x verbose
 
 clear
