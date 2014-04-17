@@ -652,6 +652,9 @@ sudo perl -pi -e "s/<username>/$NEWUSER1/g" /etc/sudoers
 sudo cp /etc/miscript/rtorrent.user.template /etc/init.d/rtorrent.$NEWUSER1
 sudo chmod 755 /etc/init.d/rtorrent.$NEWUSER1
 sudo perl -pi -e "s/<username>/$NEWUSER1/g" /etc/init.d/rtorrent.$NEWUSER1
+sudo mkdir -p /var/www/rutorrent/conf/users/$NEWUSER1/plugins/starter/
+sudo rm -rf /var/www/rutorrent/conf/users/$NEWUSER1/access.ini
+sudo cp /etc/miscript/rutorrent.conf.access.ini.template /var/www/rutorrent/conf/users/$NEWUSER1/access.ini
 
 set +x verbose
 clear
