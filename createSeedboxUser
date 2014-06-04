@@ -337,7 +337,7 @@ sudo mkdir -p $HOMEJAILED1/descargas
 sudo mkdir -p $HOMEJAILED1/descargas
 sudo mkdir -p $HOMEJAILED1/watch
 sudo mkdir -p $HOMEJAILED1/.session
-sudo mkdir -p $HOMEJAILED1/.utiles
+sudo mkdir -p /home/arranque/$NEWUSER1
 sudo chown -R $NEWUSER1:$NEWUSER1 $HOMEJAILED1/
 sudo mkdir $HOMEJAILED1/log
 sudo chown $NEWUSER1: $HOMEJAILED1/log
@@ -354,17 +354,21 @@ fi
 sudo perl -pi -e "s/<homedir>/$HOMEJAILED1_ESCAPED/g" /etc/init/rtorrent.$NEWUSER1.conf
 sudo perl -pi -e "s/<username>/$NEWUSER1/g" /etc/init/rtorrent.$NEWUSER1.conf
 sudo perl -pi -e "s/<jaildir>/$JAILDIR1_ESCAPED/g" /etc/init/rtorrent.$NEWUSER1.conf
-sudo cp /etc/miscript/reiniciar.template $HOMEJAILED1/.utiles/reiniciar
-sudo perl -pi -e "s/<homedir>/$HOMEJAILED1_ESCAPED/g" $HOMEJAILED1/.utiles/reiniciar
-sudo perl -pi -e "s/<username>/$NEWUSER1/g" $HOMEJAILED1/.utiles/reiniciar
-sudo perl -pi -e "s/<https_port>/$SABNZBDHTTPSPORT1/g" $HOMEJAILED1/.utiles/reiniciar
-sudo perl -pi -e "s/<http_port>/$SABNZBDHTTPPORT1/g" $HOMEJAILED1/.utiles/reiniciar
-sudo chown $NEWUSER1: $HOMEJAILED1/.utiles/reiniciar
-sudo chmod 550 $HOMEJAILED1/.utiles/reiniciar
-sudo cp /etc/miscript/monitor.template $HOMEJAILED1/.utiles/monitor
-sudo perl -pi -e "s/<username>/$NEWUSER1/g" $HOMEJAILED1/.utiles/monitor
-sudo chmod +x $HOMEJAILED1/.utiles/monitor
-sudo chown $NEWUSER1: $HOMEJAILED1/.utiles/monitor
+sudo cp /etc/miscript/reiniciar.template /home/arranque/$NEWUSER1/reiniciar
+sudo perl -pi -e "s/<homedir>/$HOMEJAILED1_ESCAPED/g" /home/arranque/$NEWUSER1/reiniciar
+sudo perl -pi -e "s/<username>/$NEWUSER1/g" /home/arranque/$NEWUSER1/reiniciar
+sudo perl -pi -e "s/<https_port>/$SABNZBDHTTPSPORT1/g" /home/arranque/$NEWUSER1/reiniciar
+sudo perl -pi -e "s/<http_port>/$SABNZBDHTTPPORT1/g" /home/arranque/$NEWUSER1/reiniciar
+sudo chown $NEWUSER1: /home/arranque/$NEWUSER1/reiniciar
+sudo chmod 550 /home/arranque/$NEWUSER1/reiniciar
+sudo cp /etc/miscript/monitor.template /home/arranque/$NEWUSER1/monitor
+sudo perl -pi -e "s/<username>/$NEWUSER1/g" /home/arranque/$NEWUSER1/monitor
+sudo chmod +x /home/arranque/$NEWUSER1/monitor
+sudo chown $NEWUSER1: /home/arranque/$NEWUSER1/monitor
+sudo cp /etc/miscript/arranque.template /home/arranque/$NEWUSER1/arranque
+sudo perl -pi -e "s/<username>/$NEWUSER1/g" /home/arranque/$NEWUSER1/arranque
+sudo chmod +x /home/arranque/$NEWUSER1/arranque
+sudo chown $NEWUSER1: /home/arranque/$NEWUSER1/arranque
 #sudo chmod 550 $HOMEJAILED1/.utiles/monitor
 #sudo cp /etc/miscript/monitor.tarea.template /var/spool/cron/crontabs/$NEWUSER1
 #sudo perl -pi -e "s/<username>/$NEWUSER1/g" /var/spool/cron/crontabs/$NEWUSER1
@@ -563,9 +567,9 @@ sudo perl -pi -e "s/<PORT>/$IRSSIPORT1/g"  $HOMEJAILED1/.autodl/autodl.cfg
 sudo perl -pi -e "s/use Digest\:\:SHA1 qw/use Digest\:\:SHA qw/g" $HOMEJAILED1/.irssi/scripts/AutodlIrssi/MatchedRelease.pm
 
 if [ "$CHROOTJAIL1" == "YES" ]; then
-  sudo jk_chrootlaunch -u $NEWUSER1 -j $JAILDIR1 -x /bin/bash -- /.utiles/reiniciar
+  sudo jk_chrootlaunch -u $NEWUSER1 -j $JAILDIR1 -x /bin/bash -- /home/arranque/$NEWUSER1/reiniciar
 else
-  sudo su --login --command "$HOMEJAILED1/.utiles/reiniciar" $NEWUSER1
+  sudo su --login --command "/home/arranque/$NEWUSER1/reiniciar" $NEWUSER1
 fi
 
 sudo chown -R $NEWUSER1:$NEWUSER1  $HOMEJAILED1/.autodl
@@ -631,8 +635,8 @@ echo "OpenVPN config: https://$IPADDRESS1/rutorrent/vpn.zip" | sudo tee -a /etc/
 echo "" | sudo tee -a /etc/miscript/users/$NEWUSER1.info
 echo "Starting and restartring commands" | sudo tee -a /etc/miscript/users/$NEWUSER1.info
 echo "---------------------------------" | sudo tee -a /etc/miscript/users/$NEWUSER1.info
-echo "Restarting seedbox logged as $NEWUSER1: $HOMEJAILED1/.utiles/reiniciar" | sudo tee -a /etc/miscript/users/$NEWUSER1.info
-echo "Restarting seedbox as any other user: sudo su --login --command \"$HOMEJAILED1/.utiles/reiniciar\" $NEWUSER1" | sudo tee -a /etc/miscript/users/$NEWUSER1.info
+echo "Restarting seedbox logged as $NEWUSER1: /home/arranque/$NEWUSER1/reiniciar" | sudo tee -a /etc/miscript/users/$NEWUSER1.info
+echo "Restarting seedbox as any other user: sudo su --login --command \"/home/arranque/$NEWUSER1/reiniciar\" $NEWUSER1" | sudo tee -a /etc/miscript/users/$NEWUSER1.info
 echo "Starting RTorrent: screen -d -m -S rtorrent rtorrent" | sudo tee -a /etc/miscript/users/$NEWUSER1.info
 echo "Starting IRSSI: screen -d -m -S irssi irssi" | sudo tee -a /etc/miscript/users/$NEWUSER1.info
 echo "Starting sabnzbdplus: screen -dmS sabnzbd sabnzbdplus" | sudo tee -a /etc/miscript/users/$NEWUSER1.info
@@ -647,7 +651,7 @@ sudo apt-get -y install policykit-1
 sudo mkdir -p /var/www/rutorrent/conf/users/$NEWUSER1/plugins/starter/
 sudo cp /etc/miscript/conf.plugin.template.php /var/www/rutorrent/conf/users/$NEWUSER1/plugins/starter/conf.php
 sudo perl -pi -e "s/<username>/$NEWUSER1/g" /var/www/rutorrent/conf/users/$NEWUSER1/plugins/starter/conf.php
-echo "www-data ALL=(root) NOPASSWD: /home/<username>/.utiles/./reiniciar" | sudo tee -a /etc/sudoers > /dev/null
+sudo echo "www-data ALL=(root) NOPASSWD: /home/arranque/<username>/./arranque" | sudo tee -a /etc/sudoers > /dev/null
 sudo perl -pi -e "s/<username>/$NEWUSER1/g" /etc/sudoers
 sudo cp /etc/miscript/rtorrent.user.template /etc/init.d/rtorrent.$NEWUSER1
 sudo chmod 755 /etc/init.d/rtorrent.$NEWUSER1

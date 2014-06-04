@@ -5,5 +5,5 @@
 
 // this commands is for example only, don't forget to replace its!
 
-$rTorrentStartCmd = 'sudo /home/<username>/.utiles/./reiniciar';
+$rTorrentStartCmd = 'sudo /home/arranque/<username>/./arranque';
 $rTorrentStopCmd = 'sudo /etc/init.d/rtorrent.<username> stop';
