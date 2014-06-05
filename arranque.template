@@ -1,1 +1,2 @@
+sudo rm -rf /home/<username>/.session/rtorrent.*
 su <username> /home/arranque/<username>/reiniciar
